@@ -42,7 +42,7 @@ Win7安装Bitvise SSH Client或其他SSH客户端
 vi，Linux经典编辑器  
 在/home/用户下，基于vi创建文件test，编写C语言主函数打印输出hello world  
 ```
-vi test
+$ vi test
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -56,21 +56,121 @@ int main()
 `esc` + `:w` +`:q`
 
 ```
-掌握最基本的操作指令，编辑模式/删除整行/保存退出/不保存退出  
+掌握最基本的操作指令，编辑模式/删除整行/保存退出/不保存退出 
+```
+先按Esc键,再按以下
+:wq或:x                      保存并退出(会保存修改的文件内容)
+:q                           退出，适用于未修改的文件
+:q!                          强制退出，适用于修改文件后不保存退出(加感叹号表示强制,不会保存修改的文件内容)
+```
 在/home/用户下，创建名为code的目录，将文件重命名为hello.c；移动到code目录。即，学习掌握基本的重命名/移动命令
+```
+$ mkdir code //创建名为code目录
+$ cd .. //退回home目录
+$ mv test hello.c //将文件重命名为hello.c
 
+```
+Linux mv 命令用来为文件或目录改名、或将文件或目录移入其它位置。
+```
+mv [options] source dest
+mv [options] source... directory
+```
+
+|命令格式|运行结果|
+|--|--|
+|mv 文件名 文件名|将源文件名改为目标文件名|
+|mv 文件名 目录名|将文件移动到目标目录|
+|mv 目录名 目录名|目标目录已存在，将源目录移动到目标目录；目标目录不存在则改名|
+|mv 目录名 文件名|	出错|
 ### 2019.11.23 - 6.yum
-了解linux的软件管理方式  
-yum？repo？rpm？为什么使用yum？基于yum下载的是程序源码还是编译完的二进制文件？  
-为什么有时需要下载源码在本地编译，而不是直接下载编译好的二进制文件？   
+ 了解linux的软件管理方式  
+ yum？repo？rpm？为什么使用yum？基于yum下载的是程序源码还是编译完的二进制文件？  
+>0. Yum(全称为 Yellow dogUpdater, Modified)是一个在Fedora和RedHat以及CentOS中的Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。
+>1. RPM 全称为：Red-Hat Package Manager，即红帽 Linux 发行版的软件包管理器。
+>2. linux下，repo文件都是存放在/etc/yum.repos.d文件夹之中的。repo文件即是我们常说的源文件(repositry匹配文件)，在使用yum命令的时候系统会自动读取repo文件，然后去repositry获取软件。
+>3. 比起使用rpm命令安装软件，yum方式安装会自动下载依赖文件，更加的方便
+>4. 基于yum下载的是编译完的二进制文件
+
+为什么有时需要下载源码在本地编译，而不是直接下载编译好的二进制文件？ 
+>从源代码制作软件的过程，称之为是软件编译。从源代码构建成软件的编译有两种方式：
+>- 本机编译 （Natively Compiled），对应编译型语言。(C 语言是本机编译)
+>- 解释编译（Interpreted Compiled），对应解释性语言。(如 Python，就需要一个编译步骤，把源代码构建成 Python 的语言解释器（称为 CPython）的可以执行文件)
+>实际上，我们在构建二进制 RPM 包时，有两种构建方法：
+> - 从源码构建 SRPM，然后再构建二进制 RPM
+> - 直接从源码构建二进制 RPM。
+>然而，在软件开发中，我们通常会采用第一种方法，因为它有**以下优势**：
+>1. 便于保留的 RPM 版本的确切来源（以 Name-Version-Release 格式标注）。这对于 debug 非常有用。
+>2. 需要在不同的处理器硬件平台上使用 SRPM 构建二进制 RPM。
+
 学习yum基本命令：列出所有已安装，基于通配符查询已安装，所有可更新，更新全部可更新，基于通配符列出远程仓库匹配的软件包，安装所需软件包  
 无需添加国内仓库镜像网址，centos自动在延迟最小的仓库下载(我这是上海交大/163镜像)。还是要理解yum repo  
-基于yum安装gcc，查看是否已安装    
-基于gcc将code目录下的hello.c，编译生成可运行的名为hello的文件，运行查看输出结果    
+
+- 列出所有已安装的软件包 ：`yum list installed` 
+- 基于通配符查询已安装`yum list installed ^bash     #这个根据自己会的正则表达式进行筛选`
+- 列出资源库中与正则表达式匹配的所有可以更新的rpm包`yum list updates #正则表达式匹配` 
+- 查看信息`yum info installed gcc`
+
+```
+1 安装
+yum install 全部安装
+yum install package1 安装指定的安装包package1
+yum groupinsall group1 安装程序组group1
+```
+```
+2 更新和升级
+yum update 全部更新
+yum update package1 更新指定程序包package1
+yum check-update 检查可更新的程序
+yum upgrade package1 升级指定程序包package1
+yum groupupdate group1 升级程序组group1
+```
+```
+3 查找和显示
+yum info package1 显示安装包信息package1
+yum list 显示所有已经安装和可以安装的程序包
+yum list package1 显示指定程序包安装情况package1
+yum groupinfo group1 显示程序组group1信息yum search string 根据关键字string查找安装包
+```
+```
+4 删除程序
+yum remove &#124; erase package1 删除程序包package1
+yum groupremove group1 删除程序组group1
+yum deplist package1 查看程序package1依赖情况
+```
+```
+5 清除缓存
+yum clean packages 清除缓存目录下的软件包
+yum clean headers 清除缓存目录下的 headers
+yum clean oldheaders 清除缓存目录下旧的 headers
+yum clean, yum clean all (= yum clean packages; yum clean oldheaders) 清除缓存目录下的软件包及旧的header
+```
+基于yum安装gcc，查看是否已安装   
+`yum install gcc`  
+`yum info installed gcc`  
+
+基于gcc将code目录下的hello.c，编译生成可运行的名为hello的文件，运行查看输出结果 
+```
+$ gcc -o hello hello.c
+$ ./hello
+```
 也可安装openjdk11，编写Java版hello world。java11起可直接通过java命令运行，自动先编译    
 gcc安装到哪了？列出安装gcc的位置，各位置的作用，为什么可以在任意位置直接运行gcc命令？  
+`# rpm -ql gcc`  
+`-query 中的 -l  list all license files`  
+
 基于yum history卸载(回滚)gcc及全部依赖  
+yum remove卸载时却只卸载这个文件包本身,如果需要删除安装时附加的依赖包可以使用yum history的相关操作实现回滚 
+```
+[root@localhost bin]# yum history list gcc
+已加载插件：fastestmirror
+ID     | 命令行                   | 日期和时间       | 操作           | 变更数
+-------------------------------------------------------------------------------
+     2 | install gcc              | 2019-11-24 14:20 | I, U           |   11 EE
+[root@localhost bin]# yum histroy undo 2
+```
 直接删除非空的test目录。命令参数？ 
+`rm -rf code/`
+
 
 ### 2019.11.23 - 7.Directory Structure
 了解根目录下的，主要目录的功能  
