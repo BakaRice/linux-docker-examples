@@ -107,6 +107,14 @@ mv [options] source... directory
 
 - 列出所有已安装的软件包 ：`yum list installed` 
 - 基于通配符查询已安装`yum list installed ^bash     #这个根据自己会的正则表达式进行筛选`
+`yum list|grep gcc` 
+```
+“| ”管道符用法
+
+上一条命令的输出，作为下一条命令参数
+
+方式：command1 | command2
+```
 - 列出资源库中与正则表达式匹配的所有可以更新的rpm包`yum list updates #正则表达式匹配` 
 - 查看信息`yum info installed gcc`
 
