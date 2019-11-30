@@ -157,6 +157,7 @@ $ ./hello
 gcc安装到哪了？列出安装gcc的位置，各位置的作用，为什么可以在任意位置直接运行gcc命令？  
 `# rpm -ql gcc`  
 `-query 中的 -l  list all license files`  
+>简单说PATH就是一组路径的字符串变量，当你输入的命令不带任何路径时，LINUX会在PATH记录的路径中查找该命令。有的话则执行，不存在则提示命令找不到，也就是我们经常看到的-bash:` * * * : command not found`。比如在根目录/下可以输入命令`ls`,在/usr目录下也可以输入`ls`,但其实`ls`命令根本不在这个两个目录下，当你输入ls命令时LINUX会去/bin,/usr/bin,/sbin等目录寻找该命令。而PATH就是定义/bin:/sbin:/usr/bin等这些路劲的变量，其中冒号为目录间的分割符。使用export $PATH命令可以查看环境变量的内容。
 
 基于yum history卸载(回滚)gcc及全部依赖  
 yum remove卸载时却只卸载这个文件包本身,如果需要删除安装时附加的依赖包可以使用yum history的相关操作实现回滚 
