@@ -234,6 +234,18 @@ https://yeasy.gitbooks.io/docker_practice/
 了解早先服务器基于虚拟化技术的部署，为什么使用虚拟化技术？当前Docker的虚拟化与之前的区别？优点？了解docker images docker containers？  
 Servers？VPS？Cloud Servers？为什么VPS创建了就开始计时付费？而云可以按流量/CPU内存等的实际使用量弹性付费？  
 
+|Virtual Machine|Docker Container|
+|--|--|
+|Hardware-level process isolation|OS level process isolation|
+|Each VM has a separate OS|Each container can share OS|
+|Boots in minutes|Boots in seconds|
+|VMs are of few GBs|Containers are lightweight (KBs/MBs)|
+|Ready-made VMs are difficult to find|Pre-built docker containers are easily available|
+|VMs can move to new host easily|Containers are destroyed and re-created rather than moving|
+|Creating VM takes a relatively longer time|Containers can be created in seconds|
+|More resource usage|Less resource usage|
+
+
 https://docs.docker.com/  
 官网查找适合centos系统的docker-ce社区稳定版的安装方法。Community版？  
 安装基本工具；添加docker官方仓库，下载docker-ce本身的仓库使用官方地址即可，速度很快。无需指定版本，安装最新版docker-ce  
