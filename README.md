@@ -206,9 +206,20 @@ bin/; dev/; mnt/; etc/; opt/; usr/; lib/; home/; /usr/bin/; /usr/lib/; /usr/libe
 
 ### 2019.11.26 - 8.bash & chmod
 Shell？bash？cat？了解脚本的：基本结构，支持的语句，执行linux命令，运行即可  
+>Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计语言。 
+>Shell 是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。 
+
 在/home/用户名/test下，基于vi编写一个由bash执行的，打印出/home/用户名/test/下所有文件的脚本  
 需要添加脚本文件的执行权限，运行  
 基于cat读取显式脚本代码  
+```
+#!/bin/bash
+for file in `ls`;do
+        echo $file
+done
+```
+使用 <kbd>Ctrl</kbd>+<kbd>Z</kbd>+<kbd>Z</kbd>可以直接保存退出
+
 
 带权限的列出文件
 chmod命令，r/w/x？3组权限？u/g/o？增加/修改/删除指定角色的指定权限。使用语义参数比数字好记  
